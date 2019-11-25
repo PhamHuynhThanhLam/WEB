@@ -1,0 +1,63 @@
+﻿@model QuanLyBanGiayASP.Models.ViewModels.OrderDetailViewModels
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@if (Model.Products.Count > 0)
+{
+    <table class="table table-striped" width="100%">
+        <tr class="table-info">
+            <th style="text-align:center; width:20%"></th>
+            
+            <th style="text-align:center;">
+                <label asp-for="@Model.Products.FirstOrDefault().Name"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.Products.FirstOrDefault().Price"></label>
+            </th>
+            @*<th style="text-align:center;">
+                <label asp-for="@Model.Products.FirstOrDefault().Description"></label>
+            </th>*@
+            <th style="text-align:center;">
+                <label asp-for="@Model.Products.FirstOrDefault().Merchants.Name_merchant"></label>
+            </th>
+            <th style="text-align:center;">
+                <label>Amount</label>
+            </th>
+            <th style="text-align:center;"></th>
+        </tr>
+        @foreach (var item in Model.Products)
+        {
+    <tr style="padding:50px;">
+        <td>
+            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+            </a>
+        </td>
+        <td style="text-align:center">
+            @Html.DisplayFor(c => item.Name)
+        </td>
+        <td style="text-align:center">
+            @Html.DisplayFor(c => item.Price)
+        </td>
+        @*<td style="text-align:center">
+            @Html.DisplayFor(c => item.Description)
+        </td>*@
+        <td style="text-align:center">
+            @Html.DisplayFor(c => item.Merchants.Name_merchant)
+        </td>
+        <td style="text-align:center">
+            @Model.Order.OrderItems.Where(a => a.OrderID == Model.Order.ID && a.ProductID == item.ID).Select(a => a.Amount).FirstOrDefault()
+        </td>
+
+        <td style="text-align:center">
+        </td>
+
+    </tr>
+
+        }
+    </table>
+}
+else
+{
+    <div>No items added to the shopping cart...</div>
+}

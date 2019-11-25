@@ -1,0 +1,139 @@
+﻿@model QuanLyBanGiayASP.Models.Products
+@using QuanLyBanGiayASP.Extensions
+@using Microsoft.AspNetCore.Http
+@using QuanLyBanGiayASP.Models.ViewModels
+@using QuanLyBanGiayASP.Data;
+
+
+@inject ApplicationDbContext _db
+@inject IHttpContextAccessor HttpContextAccessor
+
+<br />
+<h2 class="text-info">Product Details</h2>
+
+<form method="post">
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Price" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Description"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Description" class="form-control" readonly />
+                </div>
+            </div>
+
+            @if (!Model.Merchants.Name_merchant.Equals("--None--"))
+            {
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Merchants"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Merchants.Name_merchant" class="form-control" readonly />
+                    </div>
+                </div>
+            }
+            <div class="form-group row">
+                <div class="col-4">
+                    <label for="spinner">Amount</label>
+                </div>
+                <div class="col-8">
+
+                    @{
+                        bool isInBag = false;
+                        List<Amount_Product> lstCart = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart");
+                        if (lstCart != null)
+                        {
+                            foreach (Amount_Product item in lstCart)
+                            {
+                                if (item.IDProduct == Model.ID)
+                                {
+                                    <input asp-for="@item.Amount" class="form-control" readonly />
+                                    isInBag = true;
+                                }
+                            }
+
+                        }
+                        @if (!isInBag)
+                        {
+                            int maxSoLuong = _db.Products.Where(s => s.ID == Model.ID).Select(s => s.InStock).FirstOrDefault();
+                            int defaulValue = 1, minSoLuong = 1;
+                            if (maxSoLuong == 0)
+                            {
+                                minSoLuong = 0; defaulValue = 0;
+                            }
+
+                                <input type="number" id="spinner" name="Amount" value="@defaulValue" min="@minSoLuong" max="@maxSoLuong">
+
+                        }
+
+                    }
+
+
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+
+                </div>
+                <div class="col-8">
+                    @if (isInBag)
+                    {
+                        <button type="submit" value="Remove From Bag" asp-action="remove" asp-route-id="@Model.ID" class="btn btn-danger form-control">Remove From Bag</button>
+
+                    }
+                    else
+                    {
+                        @if (@Model.Available)
+                        {
+                            <button type="submit" value="Add to Bag" asp-route-id="@Model.ID" class="btn btn-primary form-control">Add To Bag</button>
+                        }
+                        else
+                        {
+                            <button type="submit" value="Add to Bag" disabled class="btn btn-block form-control"> Add to Bag </button>
+
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+       
+        <div class="col-3">
+            <img src="@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+            <br /><br />
+            @if (Model.Available)
+            {
+                <img src="~/images/inStock.png" width="50%" />
+
+            }
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input hidden asp-for="ID" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
