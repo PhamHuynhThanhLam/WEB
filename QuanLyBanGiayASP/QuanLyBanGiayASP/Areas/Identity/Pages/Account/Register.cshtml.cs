@@ -18,7 +18,7 @@ using QuanLyBanGiayASP.Utility;
 
 namespace QuanLyBanGiayASP.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = SD.SuperAdminEndUser)]
+    //[Authorize(Roles = SD.SuperAdminEndUser)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

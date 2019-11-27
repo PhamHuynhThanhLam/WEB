@@ -10,6 +10,6 @@ namespace QuanLyBanGiayASP.Models.ViewModels
     {
         public List<Products> Products { get; set; }
         public Orders Orders { get; set; }
-        //public Customers Customers { get; set; }     
+        
     }
 }

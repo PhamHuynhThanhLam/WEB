@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QuanLyBanGiayASP.Models.ImportDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info"> Import  List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New Import</a>
+    </div>
+    <div class="col-3">
+        <a asp-action="Add" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Import</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.DateImport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Total)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(m => item.DateImport)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Total)
+        </td>
+    </tr>
+
+        }
+    </table>
+</div>
+
+

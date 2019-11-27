@@ -1,0 +1,107 @@
+﻿@model QuanLyBanGiayASP.Models.ViewModels.StoreImportDetailViewModels
+@using Microsoft.AspNetCore.Http;
+@using QuanLyBanGiayASP.Extensions;
+@using QuanLyBanGiayASP.Utility;
+@using QuanLyBanGiayASP.Models.ViewModels;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Add";
+}
+
+<form method="post">
+    <br /><br />
+    <h2 class="text-info">Import Detail</h2>
+    <br />
+    @if (Model.ListProducts.Count > 0)
+    {
+        <div class="container border border-secondary rounded" style="padding:15px;">
+            <div class="row">
+                <div class="col-9" style="border-right:1px solid #bbb9b9;">
+                    <table class="table table-striped" width="100%">
+                        <tr class="table-info">
+                            <th style="text-align:center; width:20%"></th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.ListProducts.FirstOrDefault().Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.ListProducts.FirstOrDefault().Price"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.ListProducts.FirstOrDefault().Description"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.ListProducts.FirstOrDefault().Merchants.Name_merchant"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.ListProducts.FirstOrDefault().InStock"></label>
+                            </th>
+                            <th style="text-align:center;"></th>
+                        </tr>
+                        @foreach (var item in Model.ListProducts)
+                        {
+                            <tr style="padding:50px;">
+                                <td>
+                                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                                    </a>
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.Name)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.Price)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.Description)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(c => item.Merchants.Name_merchant)
+                                </td>
+                                <td style="text-align:left">
+
+                                    @Html.DisplayFor(c => item.InStock)
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button type="submit" class="btn btn-danger form-control" asp-action="remove" asp-route-id="@Model.Products">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="col-3" style="padding-left:30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Date Import : </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.ImportDetails.DateImport" value="" type="text" id="datepicker" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" id="btnPlaceOrder" class="btn btn-success">Add Import</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div>No items added to Import...</div>
+
+    }
+</form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: +1, maxDate: "+3M"
+            });
+        });</script>
+}
+
