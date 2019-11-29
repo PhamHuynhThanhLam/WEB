@@ -7,7 +7,7 @@
 }
 
 <br />
-<h2 class="text-info">Edit Order</h2>
+<h2 >Edit Order</h2>
 
 <form method="post" enctype="multipart/form-data">
     <div class="p-4 border rounded row">
@@ -16,7 +16,7 @@
         <div class="col-6">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Customers.CustomerName"></label>
+                    <label asp-for="Order.Customers.CustomerName" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Customers.CustomerName" class="form-control" />
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Customers.Email"></label>
+                    <label asp-for="Order.Customers.Email"class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Customers.Email" class="form-control" />
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Date"></label>
+                    <label asp-for="Order.Date"class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Date" id="datepicker" type="text" class="form-control" />
@@ -43,7 +43,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Time"></label>
+                    <label asp-for="Order.Time"class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Time" id="timepicker" type="text" class="timepicker form-control" />
@@ -52,7 +52,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Customers.Phone"></label>
+                    <label asp-for="Order.Customers.Phone"class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Customers.Phone" class="form-control" />
@@ -61,7 +61,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.SalerPerson"></label>
+                    <label asp-for="Order.SalerPerson"class="text-white"></label>
                 </div>
                 <div class="col-8">
                     @if (User.IsInRole(SD.AdminEndUser))
@@ -80,7 +80,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.isConfirmed"></label>
+                    <label asp-for="Order.isConfirmed" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.isConfirmed" class="form-control" />
@@ -96,7 +96,7 @@
 
 
         <br />
-        <div class="form-group">
+        <div style="text-align:center">
             <input type="submit" class="btn btn-primary" value="Update" />
             <a asp-action="Index" class="btn btn-success">Back to List</a>
         </div>

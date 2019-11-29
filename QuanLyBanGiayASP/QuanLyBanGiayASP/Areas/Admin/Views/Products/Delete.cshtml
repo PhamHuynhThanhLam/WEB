@@ -3,7 +3,7 @@
 
 
 <br />
-<h2 class="text-info">Delete Product</h2>
+<h2 >Delete Product</h2>
 
 <form method="post">
     <div class="p-4 border rounded row">
@@ -11,7 +11,7 @@
         <div class="col-8">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Products.Name"></label>
+                    <label asp-for="Products.Name" style="color:white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Products.Name" readonly class="form-control" />
@@ -19,7 +19,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Products.Price"></label>
+                    <label asp-for="Products.Price" style="color:white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Products.Price" readonly class="form-control" />
@@ -28,15 +28,23 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Merchants"></label>
+                    <label asp-for="Merchants" style="color:white"></label>
                 </div>
                 <div class="col-8">
-                    <select asp-for="@Model.Products.MerchantId" asp-items="Model.Merchants.ToSelectListItem(Model.Products.MerchantId)" class="form-control"></select>
+                    <select asp-for="@Model.Products.MerchantId" asp-items="Model.Merchants.ToSelectListItem(Model.Products.MerchantId)" readonly class="form-control"></select>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Products.Description"></label>
+                    <label asp-for="Brands" style="color:white"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.Products.BrandId" asp-items="Model.Brands.ToSelectListItemBrand(Model.Products.BrandId)" readonly class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Products.Description" style="color:white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Products.Description" readonly class="form-control" />
@@ -44,7 +52,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Products.Available"></label>
+                    <label asp-for="Products.Available" style="color:white"></label>
                 </div>
                 <div class="col-8">
                     <input type="checkbox" readonly class="form-control" asp-for="Products.Available" />

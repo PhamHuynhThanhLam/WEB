@@ -39,7 +39,7 @@ namespace QuanLyBanGiayASP.Areas.Customer.Controllers
                 
                 foreach (Amount_Product cartItem in lstShoppingCart)
                 {
-                    Products prod = _db.Products.Include(p => p.Merchants).Where(p => p.ID == cartItem.IDProduct).FirstOrDefault();
+                    Products prod = _db.Products.Include(p => p.Merchants).Include(p => p.Brands).Where(p => p.ID == cartItem.IDProduct).FirstOrDefault();
                    
                     ShoppingCartVM.Products.Add(prod);
                 }
@@ -63,6 +63,7 @@ namespace QuanLyBanGiayASP.Areas.Customer.Controllers
                                                             .AddMinutes(ShoppingCartVM.Orders.Time.Minute);
 
             Customers customer = ShoppingCartVM.Orders.Customers;
+            customer.Status = "Just Order";
             _db.Customers.Add(customer);
             _db.SaveChanges();
 
@@ -139,7 +140,7 @@ namespace QuanLyBanGiayASP.Areas.Customer.Controllers
             List<Products> products = new List<Products>();        
             foreach (OrderItems prodAptObj in orderItems)
             {
-                products.Add(_db.Products.Include(p => p.Merchants).Where(p => p.ID == prodAptObj.ProductID).FirstOrDefault());
+                products.Add(_db.Products.Include(p => p.Merchants).Include(p => p.Brands).Where(p => p.ID == prodAptObj.ProductID).FirstOrDefault());
             }
 
             OrderDetailViewModels orderItemsVM = new OrderDetailViewModels()

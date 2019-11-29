@@ -8396,11 +8396,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\HK1-2019-2020\\DoanWeb\\QuanLyBanGiayASP\\QuanLyBanGiayASP\\QuanLyBanGiayASP.csproj",
+      "projectUniqueName": "E:\\HK1-2019-2020\\QuanLyBanGiayASP\\QuanLyBanGiayASP\\QuanLyBanGiayASP.csproj",
       "projectName": "QuanLyBanGiayASP",
-      "projectPath": "E:\\HK1-2019-2020\\DoanWeb\\QuanLyBanGiayASP\\QuanLyBanGiayASP\\QuanLyBanGiayASP.csproj",
+      "projectPath": "E:\\HK1-2019-2020\\QuanLyBanGiayASP\\QuanLyBanGiayASP\\QuanLyBanGiayASP.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "E:\\HK1-2019-2020\\DoanWeb\\QuanLyBanGiayASP\\QuanLyBanGiayASP\\obj\\",
+      "outputPath": "E:\\HK1-2019-2020\\QuanLyBanGiayASP\\QuanLyBanGiayASP\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

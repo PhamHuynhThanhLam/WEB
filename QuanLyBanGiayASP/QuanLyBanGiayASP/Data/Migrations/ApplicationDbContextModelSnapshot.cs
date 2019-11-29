@@ -221,6 +221,21 @@ namespace QuanLyBanGiayASP.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("QuanLyBanGiayASP.Models.Brands", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("QuanLyBanGiayASP.Models.Customers", b =>
                 {
                     b.Property<int>("ID")
@@ -353,6 +368,9 @@ namespace QuanLyBanGiayASP.Data.Migrations
                     b.Property<bool>("Available")
                         .HasColumnType("bit");
 
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -372,6 +390,8 @@ namespace QuanLyBanGiayASP.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("MerchantId");
 
@@ -491,6 +511,12 @@ namespace QuanLyBanGiayASP.Data.Migrations
 
             modelBuilder.Entity("QuanLyBanGiayASP.Models.Products", b =>
                 {
+                    b.HasOne("QuanLyBanGiayASP.Models.Brands", "Brands")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("QuanLyBanGiayASP.Models.Merchants", "Merchants")
                         .WithMany()
                         .HasForeignKey("MerchantId")

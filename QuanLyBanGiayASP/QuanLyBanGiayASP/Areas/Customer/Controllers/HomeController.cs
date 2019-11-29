@@ -27,13 +27,13 @@ namespace QuanLyBanGiayASP.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var productList = await _db.Products.Include(m => m.Merchants).ToListAsync();
+            var productList = await _db.Products.Include(m => m.Merchants).Include(m => m.Brands).ToListAsync();
 
             return View(productList);
         }
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _db.Products.Include(m => m.Merchants).Where(m => m.ID == id).FirstOrDefaultAsync();
+            var product = await _db.Products.Include(m => m.Merchants).Include(m => m.Brands).Where(m => m.ID == id).FirstOrDefaultAsync();
 
             return View(product);
         }

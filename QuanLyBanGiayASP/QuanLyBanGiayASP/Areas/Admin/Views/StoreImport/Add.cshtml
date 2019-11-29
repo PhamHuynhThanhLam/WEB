@@ -10,7 +10,7 @@
 
 <form method="post">
     <br /><br />
-    <h2 class="text-info">Import Detail</h2>
+    <h2>Import Detail</h2>
     <br />
     @if (Model.ListProducts.Count > 0)
     {
@@ -33,49 +33,55 @@
                                 <label asp-for="@Model.ListProducts.FirstOrDefault().Merchants.Name_merchant"></label>
                             </th>
                             <th style="text-align:center;">
+                                <label asp-for="@Model.ListProducts.FirstOrDefault().Brands.Name"></label>
+                            </th>
+                            <th style="text-align:center;">
                                 <label asp-for="@Model.ListProducts.FirstOrDefault().InStock"></label>
                             </th>
                             <th style="text-align:center;"></th>
                         </tr>
                         @foreach (var item in Model.ListProducts)
                         {
-                            <tr style="padding:50px;">
-                                <td>
-                                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
-                                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
-                                    </a>
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Name)
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Price)
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Description)
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Merchants.Name_merchant)
-                                </td>
-                                <td style="text-align:left">
+                    <tr style="padding:50px;">
+                        <td>
+                            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                                <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Price)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Description)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Merchants.Name_merchant)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Brands.Name)
+                        </td>
+                        <td style="text-align:left">
 
-                                    @Html.DisplayFor(c => item.InStock)
+                            @Html.DisplayFor(c => item.InStock)
 
-                                </td>
-                                <td style="text-align:center">
-                                    <button type="submit" class="btn btn-danger form-control" asp-action="remove" asp-route-id="@Model.Products">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                        </td>
+                        <td style="text-align:center">
+                            <button type="submit" class="btn btn-danger form-control" asp-action="remove" asp-route-id="@item.ID">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
 
-                                </td>
-                            </tr>
+                        </td>
+                    </tr>
                         }
                     </table>
                 </div>
                 <div class="col-3" style="padding-left:30px;">
                     <div class="row">
                         <div class="col-12">
-                            <label>Date Import : </label>
+                            <label  class="text-white">Date Import : </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.ImportDetails.DateImport" value="" type="text" id="datepicker" class="form-control" />
@@ -91,7 +97,7 @@
     }
     else
     {
-        <div>No items added to Import...</div>
+        <div  class="text-white">No items added to Import...</div>
 
     }
 </form>

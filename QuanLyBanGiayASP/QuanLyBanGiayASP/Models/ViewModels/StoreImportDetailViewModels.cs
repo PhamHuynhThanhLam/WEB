@@ -11,5 +11,6 @@ namespace QuanLyBanGiayASP.Models.ViewModels
         public List<Products> ListProducts { get; set; }
         public ImportDetails ImportDetails { get; set; }
         public IEnumerable<Merchants> Merchants { get; set; }
+        public IEnumerable<Brands> Brands { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 }
 
 <br />
-<h2 class="text-info">Delete Order</h2>
+<h2 >Delete Order</h2>
 
 <form method="post">
     <div class="p-4 border rounded row">
@@ -16,7 +16,7 @@
         <div class="col-6">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Customers.CustomerName"></label>
+                    <label asp-for="Order.Customers.CustomerName" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Customers.CustomerName" readonly class="form-control" />
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Customers.Email"></label>
+                    <label asp-for="Order.Customers.Email" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Customers.Email" readonly class="form-control" />
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Date"></label>
+                    <label asp-for="Order.Date" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Date" id="datepicker" readonly type="text" class="form-control" />
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Time"></label>
+                    <label asp-for="Order.Time" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Time" id="timepicker" readonly type="text" class="timepicker form-control" />
@@ -48,7 +48,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.Customers.Phone"></label>
+                    <label asp-for="Order.Customers.Phone" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.Customers.Phone" readonly class="form-control" />
@@ -56,7 +56,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.SalerPerson"></label>
+                    <label asp-for="Order.SalerPerson" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     @if (User.IsInRole(SD.AdminEndUser))
@@ -75,7 +75,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Order.isConfirmed"></label>
+                    <label asp-for="Order.isConfirmed" class="text-white"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="Order.isConfirmed" readonly class="form-control" />
@@ -91,7 +91,7 @@
 
 
         <br />
-        <div class="form-group">
+        <div style="text-align:center">
             <input type="submit" class="btn btn-danger" asp-route-id="@Model.Order.ID" value="Delete" />
             <a asp-action="Index" class="btn btn-success">Back to List</a>
         </div>

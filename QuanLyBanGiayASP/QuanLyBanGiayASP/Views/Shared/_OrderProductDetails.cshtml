@@ -14,9 +14,9 @@
             <th style="text-align:center;">
                 <label asp-for="@Model.Products.FirstOrDefault().Price"></label>
             </th>
-            @*<th style="text-align:center;">
-                <label asp-for="@Model.Products.FirstOrDefault().Description"></label>
-            </th>*@
+            <th style="text-align:center;">
+                <label asp-for="@Model.Products.FirstOrDefault().Brands.Name"></label>
+            </th>
             <th style="text-align:center;">
                 <label asp-for="@Model.Products.FirstOrDefault().Merchants.Name_merchant"></label>
             </th>
@@ -39,9 +39,9 @@
         <td style="text-align:center">
             @Html.DisplayFor(c => item.Price)
         </td>
-        @*<td style="text-align:center">
-            @Html.DisplayFor(c => item.Description)
-        </td>*@
+        <td style="text-align:center">
+            @Html.DisplayFor(c => item.Brands.Name)
+        </td>
         <td style="text-align:center">
             @Html.DisplayFor(c => item.Merchants.Name_merchant)
         </td>

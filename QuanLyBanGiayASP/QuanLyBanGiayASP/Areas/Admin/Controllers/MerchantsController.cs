@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuanLyBanGiayASP.Data;
 using QuanLyBanGiayASP.Models;
+using QuanLyBanGiayASP.Utility;
 
 namespace QuanLyBanGiayASP.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class MerchantsController : Controller
     {

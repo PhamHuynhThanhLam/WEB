@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using QuanLyBanGiayASP.Utility;
 
 namespace QuanLyBanGiayASP.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     [Area("Admin")]
     public class StoreImportController : Controller
     {
@@ -33,7 +35,7 @@ namespace QuanLyBanGiayASP.Areas.Admin.Controllers
                 Products = new Models.Products(),
                 Merchants = _db.Merchants.ToList(),
                 ListProducts = new List<Models.Products>(),
-                
+                Brands = _db.Brands.ToList()
             };
         }
         public async Task<IActionResult> Index()
@@ -50,19 +52,20 @@ namespace QuanLyBanGiayASP.Areas.Admin.Controllers
 
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost(Products products)
+        public async Task<IActionResult> CreatePost(int id)
         {
-
-            List<AddProducts> lstProduct = HttpContext.Session.Get<List<AddProducts>>("ssCart");
+            List<int> lstProduct = HttpContext.Session.Get<List<int>>("ssCart");
             if (lstProduct == null)
             {
-                lstProduct = new List<AddProducts>();
+                lstProduct = new List<int>();
             }
-
+            _db.Products.Add(StoreImportVM.Products);
+            await _db.SaveChangesAsync();
+           
             string webRootPath = _webHostEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
-
-
+           
+            var productsFromDb = _db.Products.Find(StoreImportVM.Products.ID);
 
             if (files.Count != 0)
             {
@@ -74,40 +77,35 @@ namespace QuanLyBanGiayASP.Areas.Admin.Controllers
                 {
                     files[0].CopyTo(filestream);
                 }
-                products.Image = @"\" + SD.ImageFolder + @"\" + StoreImportVM.Products.ID + extension;
+                productsFromDb.Image = @"\" + SD.ImageFolder + @"\" + StoreImportVM.Products.ID + extension;
             }
             else
             {
                 //when user does not upload image
                 var uploads = Path.Combine(webRootPath, SD.ImageFolder + @"\" + SD.DefaultProductImage);
+
                 System.IO.File.Copy(uploads, webRootPath + @"\" + SD.ImageFolder + @"\" + StoreImportVM.Products.ID + ".png");
-                products.Image = @"\" + SD.ImageFolder + @"\" + StoreImportVM.Products.ID + ".png";
+                productsFromDb.Image = @"\" + SD.ImageFolder + @"\" + StoreImportVM.Products.ID + ".png";
+                
             }
+            await _db.SaveChangesAsync();
 
-            lstProduct.Add(new AddProducts()
-            {
-                Products = products
-            });
-
+            int idproduct = StoreImportVM.Products.ID;
+            lstProduct.Add(idproduct);
             HttpContext.Session.Set("ssCart", lstProduct);
-            return RedirectToAction("Create", "StoreImport", new { area = "Admin" });
-
-
+            return RedirectToAction(nameof(Index));
         }
 
         //Add Product
         public async Task<IActionResult> Add()
         {
-            List<AddProducts> lstProduct = HttpContext.Session.Get<List<AddProducts>>("ssCart");
+            List<int> lstProduct = HttpContext.Session.Get<List<int>>("ssCart");
             if (lstProduct?.Count > 0)
             {
 
-                foreach (AddProducts cartItem in lstProduct)
+                foreach (int cartItem in lstProduct)
                 {
-                    Products prod = cartItem.Products;
-                    prod.MerchantId = cartItem.Products.MerchantId;
-                    var merchant = _db.Merchants.Where(a=>a.ID == prod.MerchantId).FirstOrDefault();
-                    prod.Merchants = merchant;
+                    Products prod = _db.Products.Include(p => p.Merchants).Include(p => p.Brands).Where(p => p.ID == cartItem).FirstOrDefault();
                     StoreImportVM.ListProducts.Add(prod);
                 }
 
@@ -121,16 +119,23 @@ namespace QuanLyBanGiayASP.Areas.Admin.Controllers
         [ActionName("Add")]
         public IActionResult AddPost()
         {
-            List<AddProducts> lstProduct = HttpContext.Session.Get<List<AddProducts>>("ssCart");
+            List<int> lstProduct = HttpContext.Session.Get<List<int>>("ssCart");
 
             StoreImportVM.ImportDetails.DateImport = StoreImportVM.ImportDetails.DateImport;
 
+            //upload chi tiết nhập với tổng giá tiền
             ImportDetails import = StoreImportVM.ImportDetails;
-
             double total = 0;
-            foreach (AddProducts item in lstProduct)
+            var productlist = _db.Products.ToList();
+            foreach (int item in lstProduct)
             {
-                total = total + item.Products.Price * item.Products.InStock;
+                for(int i=0; i<productlist.Count ; i++)
+                {
+                    if(item == productlist[i].ID)
+                    {
+                        total = total + productlist[i].Price * productlist[i].InStock;
+                    }
+                }            
             }
             import.Total = Convert.ToInt32(total);
             _db.ImportDetails.Add(import);
@@ -138,45 +143,48 @@ namespace QuanLyBanGiayASP.Areas.Admin.Controllers
 
             int idimport = import.ID;
 
-            foreach (AddProducts item in lstProduct)
-            {
-                _db.Products.Add(item.Products);
-                _db.SaveChanges();   
-            }
-
-            var product = _db.Products.ToList();
-            foreach (AddProducts item in lstProduct)
+            //update store
+            foreach (int item in lstProduct)
             {
                 Stores stores = new Stores()
                 {
                     ImportDetailID = idimport,
-                    ProductID = item.Products.ID
+                    ProductID = item
                 };
                 _db.Stores.Add(stores);
             }
             _db.SaveChanges();
 
-            lstProduct = new List<AddProducts>();
+            lstProduct = new List<int>();
             HttpContext.Session.Set("ssCart", lstProduct);
 
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Remove(Products products)
+        public IActionResult Remove(int id)
         {
-            List<AddProducts> lstProduct = HttpContext.Session.Get<List<AddProducts>>("ssCart");
+            List<int> lstProduct = HttpContext.Session.Get<List<int>>("ssCart");
+            string webRootPath = _webHostEnvironment.WebRootPath;
+
 
             if (lstProduct.Count > 0)
             {
-                foreach (AddProducts item in lstProduct)
+                if (lstProduct.Contains(id))
                 {
-                    if (item.Products.ID == products.ID)
-                    {
-                        lstProduct.Remove(item);
-                        break;
-                    }
-                }
+                    Products productdelete = _db.Products.Find(id);
 
+                    var uploads = Path.Combine(webRootPath, SD.ImageFolder);
+                    var extension = Path.GetExtension(productdelete.Image);
+                    if (System.IO.File.Exists(Path.Combine(uploads, productdelete.ID + extension)))
+                    {
+                        System.IO.File.Delete(Path.Combine(uploads, productdelete.ID + extension));
+                    }
+
+                    _db.Products.Remove(productdelete);
+                    lstProduct.Remove(id);
+                    _db.SaveChanges();
+
+                }
             }
 
             HttpContext.Session.Set("ssCart", lstProduct);

@@ -22,6 +22,8 @@ namespace QuanLyBanGiayASP.Data
       
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<ImportDetails> ImportDetails { get; set; }
+        public DbSet<Brands> Brands { get; set; }
         public DbSet<Stores> Stores { get; set; }
+
     }
 }

@@ -19,7 +19,7 @@ namespace QuanLyBanGiayASP.Extensions
                    };
         }
 
-        public static IEnumerable<SelectListItem> ToSelectListItem1<T>(this IEnumerable<T> items, int selectedValue)
+        public static IEnumerable<SelectListItem> ToSelectListItemBrand<T>(this IEnumerable<T> items, int selectedValue)
         {
             return from item in items
                    select new SelectListItem

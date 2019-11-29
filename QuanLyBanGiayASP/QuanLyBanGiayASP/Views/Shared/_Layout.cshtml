@@ -15,13 +15,14 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/jquery-ui.css" />
     <link rel="stylesheet" href="~/css/jquery.timepicker.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">Welcome To Store</a>
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index" style="color:white">Welcome To Store</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,85 +31,87 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole(SD.SuperAdminEndUser))
+                        @if (User.IsInRole(SD.AdminEndUser))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Merchants" asp-action="Index">Merchant</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Customers" asp-action="Index">Customer</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="StoreImport" asp-action="Index">Import</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">Admin User</a>
-                            </li>
-                        }
-                        @if (User.IsInRole(SD.SuperAdminEndUser) || User.IsInRole(SD.AdminEndUser))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order</a>
+                                <a class="nav-link text-white" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order</a>
                             </li>
                         }
                         @if (HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart") != null)
                         {
-                            <li style="color:white">
-                                <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
-                                    <i class="fas fa-shopping-cart"></i> &nbsp;
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart").Count;
-                                    }
-                                    (@count)
-                                </a>
+                           <li class="text-white">
+                               <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+
+                                   @{
+                                       var count = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart").Count;
+                                   }
+                                   <i class="fas fa-shopping-cart text-white" style="margin-right:10px" >( @count )</i> &nbsp;
+                                   
+                               </a>
 
                             </li>
 
-                        }
-                        else
-                        {
-                            <li style="color:white">
+                                        }
+                                        else
+                                        {
+                            <li >
                                 <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
-                                    <i class="fas fa-shopping-cart"></i> &nbsp;
+                                    <i class="fas fa-shopping-cart" style="color:white"></i> &nbsp;
 
                                     (0)
                                 </a>
 
                             </li>
 
-                        }
+                                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    @if (User.IsInRole(SD.SuperAdminEndUser))
+    {
         <div class="container">
-            &copy; 2019 - QuanLyBanGiayASP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-one" asp-area="Admin" asp-controller="Merchants" asp-action="Index">Merchant</a> </div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Brands" asp-action="Index">Brand</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-two" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="StoreImport" asp-action="Index">Import</a> </div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Customers" asp-action="Index">Customer</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">AdminUser</a> </div>
+            </div>
+            <div style="margin-top:30px">
+
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/jquery-ui.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.timepicker.js" asp-append-version="true"></script>
-    <script>
-        $(function () {
-            var spinner = $("#spinner").spinner();
-            $("button").button();
-        });
-    </script>
-    @RenderSection("Scripts", required: false)
-</body>
+     } 
+         
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2019 - QuanLyBanGiayASP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/jquery-ui.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.timepicker.js" asp-append-version="true"></script>
+        <script>
+            $(function () {
+                var spinner = $("#spinner").spinner();
+                $("button").button();
+            });
+        </script>
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>

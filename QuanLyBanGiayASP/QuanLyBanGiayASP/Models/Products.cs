@@ -25,5 +25,12 @@ namespace QuanLyBanGiayASP.Models
 
         [ForeignKey("MerchantId")]
         public virtual Merchants Merchants { get; set; }
+
+        [Display(Name = "Brand")]
+        public int BrandId { get; set; }
+
+        [ForeignKey("BrandId")]
+        public virtual Brands Brands { get; set; }
+       
     }
 }

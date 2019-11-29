@@ -9,5 +9,6 @@ namespace QuanLyBanGiayASP.Models.ViewModels
     {
         public Products Products { get; set; }
         public IEnumerable<Merchants> Merchants { get; set; }
+        public IEnumerable<Brands> Brands { get; set; }
     }
 }

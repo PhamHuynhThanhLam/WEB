@@ -10,7 +10,7 @@
 
 <form method="post">
     <br /><br />
-    <h2 class="text-info">Your Shopping Cart</h2>
+    <h2>Your Shopping Cart</h2>
     <br />
     @if (Model.Products.Count > 0)
     {
@@ -33,86 +33,98 @@
                                 <label asp-for="@Model.Products.FirstOrDefault().Merchants.Name_merchant"></label>
                             </th>
                             <th style="text-align:center;">
+                                <label asp-for="@Model.Products.FirstOrDefault().Brands.Name"></label>
+                            </th>
+                            <th style="text-align:center;">
                                 <label>Amount</label>
                             </th>
                             <th style="text-align:center;"></th>
                         </tr>
                         @foreach (var item in Model.Products)
                         {
-                            <tr style="padding:50px;">
-                                <td>
-                                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
-                                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
-                                    </a>
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Name)
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Price)
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Description)
-                                </td>
-                                <td style="text-align:center">
-                                    @Html.DisplayFor(c => item.Merchants.Name_merchant)
-                                </td>
-                                <td style="text-align:left">
-                                    
-                                    @{
-                                        List<Amount_Product> gioHang = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart");
-                                        if (gioHang != null)
+                    <tr style="padding:50px;">
+                        <td>
+                            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.ID">
+                                <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Price)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Description)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Merchants.Name_merchant)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Brands.Name)
+                        </td>
+                        <td style="text-align:left">
+
+                            @{
+                                List<Amount_Product> gioHang = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart");
+                                if (gioHang != null)
+                                {
+                                    @foreach (Amount_Product product in gioHang)
+                                    {
+                                        @if (product.IDProduct == item.ID)
                                         {
-                                            @foreach (Amount_Product product in gioHang)
-                                            {
-                                                @if (product.IDProduct == item.ID)
-                                                {
-                                                    @Html.DisplayFor(i => product.Amount)
-                                                    break;
-                                                }
-                                            }
+                                            @Html.DisplayFor(i => product.Amount)
+                                            break;
                                         }
                                     }
+                                }
+                            }
 
-                                </td>
-                                <td style="text-align:center">
-                                    <button type="submit" class="btn btn-danger form-control" asp-action="remove" asp-route-id="@item.ID">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                        </td>
+                        <td style="text-align:center">
+                            <button type="submit" class="btn btn-danger form-control" asp-action="remove" asp-route-id="@item.ID">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
 
-                                </td>
-                            </tr>
+                        </td>
+                    </tr>
                         }
                     </table>
                 </div>
                 <div class="col-3" style="padding-left:30px;">
                     <div class="row">
                         <div class="col-12">
-                            <label>Name : </label>
+                            <label class="text-white">Name</label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Orders.Customers.CustomerName" class="form-control" />
                         </div>
                         <div class="col-12">
-                            <label>Phone Number : </label>
+                            <label class="text-white">Phone Number </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Orders.Customers.Phone" class="form-control" />
                         </div>
                         <div class="col-12">
-                            <label>Email  : </label>
+                            <label class="text-white">Email  </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Orders.Customers.Email" class="form-control" />
                         </div>
                         <div class="col-12">
-                            <label>Appointment Date : </label>
+                            <label class="text-white">Birth Day  </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Orders.Customers.Date" value="" type="text" id="datepickerdate" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label class="text-white">Appointment Date </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Orders.Date" value="" type="text" id="datepicker" class="form-control" />
                         </div>
                         <div class="col-12">
-                            <label>Order Time : </label>
+                            <label class="text-white">Order Time</label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Orders.Time" value="" type="text" class="timepicker form-control" />
@@ -128,7 +140,7 @@
     }
     else
     {
-        <div>No items added to the shopping cart...</div>
+        <div class="text-white">No items added to the shopping cart...</div>
 
     }
 </form>
@@ -150,6 +162,11 @@
             $("#datepicker").datepicker({
                 minDate: +1, maxDate: "+3M"
             });
-        });</script>
+        });
+         $(function () {
+            $("#datepickerdate").datepicker({
+            });
+        });
+    </script>
 }
 

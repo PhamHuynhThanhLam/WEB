@@ -4,36 +4,40 @@
 }
 
 <br />
-<h2 class="text-info">Merchant Details</h2>
+<h2>>Merchant Details</h2>
 
 <div class="p-4 border rounded">
     <div class="form-group row">
+        <div class="col-2"></div>
         <div class="col-2">
-            <label asp-for="Name_merchant"></label>
+            <label asp-for="Name_merchant" style="color:white">Merchant</label>
         </div>
         <div class="col-5">
             <input asp-for="Name_merchant" disabled class="form-control" />
         </div>
     </div>
     <div class="form-group row">
+        <div class="col-2"></div>
         <div class="col-2">
-            <label asp-for="Address"></label>
+            <label asp-for="Address" style="color:white">Address</label>
         </div>
         <div class="col-5">
             <input asp-for="Address" disabled class="form-control" />
         </div>
     </div>
     <div class="form-group row">
+        <div class="col-2"></div>
         <div class="col-2">
-            <label asp-for="Phone"></label>
+            <label asp-for="Phone" style="color:white">Phone</label>
         </div>
         <div class="col-5">
             <input asp-for="Phone" disabled class="form-control" />
         </div>
     </div>
     <div class="form-group row">
+        <div class="col-2"></div>
         <div class="col-2">
-            <label asp-for="Description"></label>
+            <label asp-for="Description" style="color:white">Description</label>
         </div>
         <div class="col-5">
             <input asp-for="Description" disabled class="form-control" />
@@ -41,7 +45,7 @@
     </div>
 
     <br />
-    <div class="form-group">
+    <div style="text-align:center">
         <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary">Edit</a>
         <a asp-action="Index" class="btn btn-success">Back to List</a>
     </div>
