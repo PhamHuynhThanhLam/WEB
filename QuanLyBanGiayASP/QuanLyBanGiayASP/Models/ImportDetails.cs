@@ -11,7 +11,11 @@ namespace QuanLyBanGiayASP.Models
     {
         public int ID { get; set; }
         public DateTime DateImport { get; set; }
-        public int Total { get; set; }
 
+        [Display(Name = "Product")]
+        public int ProductId { get; set; }
+
+        [ForeignKey("ProductId ")]
+        public virtual Products Products { get; set; }
     }
 }

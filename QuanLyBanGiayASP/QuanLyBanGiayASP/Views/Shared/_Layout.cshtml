@@ -33,62 +33,61 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole(SD.AdminEndUser))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order</a>
-                            </li>
-                        }
-                        @if (HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart") != null)
-                        {
-                           <li class="text-white">
-                               <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+                            @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.SuperAdminEndUser))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order</a>
+                                </li>
+                            }
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart") != null)
+                            {
+                                <li class="text-white">
+                                    <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
 
-                                   @{
-                                       var count = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart").Count;
-                                   }
-                                   <i class="fas fa-shopping-cart text-white" style="margin-right:10px" >( @count )</i> &nbsp;
-                                   
-                               </a>
-
-                            </li>
-
+                                        @{
+                                            var count = HttpContextAccessor.HttpContext.Session.Get<List<Amount_Product>>("ssShoppingCart").Count;
                                         }
-                                        else
-                                        {
-                            <li >
-                                <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
-                                    <i class="fas fa-shopping-cart" style="color:white"></i> &nbsp;
+                                        <i class="fas fa-shopping-cart text-white" style="margin-right:10px">( @count )</i> &nbsp;
 
-                                    (0)
-                                </a>
+                                    </a>
 
-                            </li>
+                                </li>
 
-                                        }
-                    </ul>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-shopping-cart" style="color:white"></i> &nbsp;
+
+                                        (0)
+                                    </a>
+
+                                </li>
+
+                            }
+                        </ul>
                 </div>
             </div>
         </nav>
     </header>
-    @if (User.IsInRole(SD.SuperAdminEndUser))
+    @*@if (User.IsInRole(SD.SuperAdminEndUser))
     {
-        <div class="container">
-            <div class="row">
+<div class="container">
+    <div class="row">
 
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-one" asp-area="Admin" asp-controller="Merchants" asp-action="Index">Merchant</a> </div>
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Brands" asp-action="Index">Brand</a></div>
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-two" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a></div>
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="StoreImport" asp-action="Index">Import</a> </div>
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Customers" asp-action="Index">Customer</a></div>
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Orders" asp-action="Index">Order</a></div>
-                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">AdminUser</a> </div>
-            </div>
-            <div style="margin-top:30px">
+        <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-one" asp-area="Admin" asp-controller="Merchants" asp-action="Index">Merchant</a> </div>
+        <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Brands" asp-action="Index">Brand</a></div>
+        <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-two" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a></div>
+        <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="StoreImport" asp-action="Index">Import</a> </div>
+        <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Customers" asp-action="Index">Customer</a></div>
+        <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">Admin User</a> </div>
+    </div>
+    <div style="margin-top:30px">
 
-            </div>
-        </div>
-     } 
+    </div>
+</div>
+     }*@ 
          
         <div class="container">
             <main role="main" class="pb-3">

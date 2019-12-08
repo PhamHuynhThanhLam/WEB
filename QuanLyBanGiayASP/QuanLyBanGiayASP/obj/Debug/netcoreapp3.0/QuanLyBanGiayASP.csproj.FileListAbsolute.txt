@@ -347,9 +347,6 @@ E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\Products\Details.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\Products\Edit.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\Products\Index.cshtml.g.cs
-E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\StoreImport\Add.cshtml.g.cs
-E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\StoreImport\Create.cshtml.g.cs
-E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\StoreImport\Index.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Customer\Views\Home\Details.cshtml.g.cs
@@ -630,3 +627,6 @@ E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\Brands\Edit.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\Brands\Index.cshtml.g.cs
 E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\QuanLyBanGiayASP.csprojAssemblyReference.cache
+E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\StoreImport\Add.cshtml.g.cs
+E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\StoreImport\Create.cshtml.g.cs
+E:\HK1-2019-2020\QuanLyBanGiayASP\QuanLyBanGiayASP\obj\Debug\netcoreapp3.0\Razor\Areas\Admin\Views\StoreImport\Index.cshtml.g.cs

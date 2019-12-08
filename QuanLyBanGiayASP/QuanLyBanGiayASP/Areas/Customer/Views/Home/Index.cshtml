@@ -1,4 +1,5 @@
-﻿@model List<QuanLyBanGiayASP.Models.Products>
+﻿@using QuanLyBanGiayASP.Utility;
+@model List<QuanLyBanGiayASP.Models.Products>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,8 +8,27 @@
 <br />
 
 <div class="row">
-    @foreach (var product in Model)
+    @if (User.IsInRole(SD.SuperAdminEndUser))
     {
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-one" asp-area="Admin" asp-controller="Merchants" asp-action="Index">Merchant</a> </div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Brands" asp-action="Index">Brand</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-two" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="StoreImport" asp-action="Index">Import</a> </div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-three" asp-area="Admin" asp-controller="Customers" asp-action="Index">Customer</a></div>
+                <div class="col-md-2 col-sm-4 col-xs-6"> <a class="btn btn-sm animated-button thar-four" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">Admin User</a> </div>
+            </div>
+            <div style="margin-top:30px">
+
+            </div>
+        </div>
+    }
+    @foreach (var product in Model)
+    {<div style="margin-top:30px">
+
+        </div>
         <div class="col-md-4 col-xs-12">
             <div class="card mb-4">
                 <div class="card-header">
@@ -19,18 +39,18 @@
                 <a asp-controller="Home" asp-action="Details" asp-route-id="@product.ID">
                     <img class="card-img-top" style="height:100%;" src="@product.Image" alt="Card Image" />
                 </a>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <label style="font-size:20px; color:#a51313"><b>$@product.Price</b>/sq.ft</label>
-                            </div>
-                            <a asp-action="Details" asp-controller="Home" class="btn btn-success" asp-route-id="@product.ID">
-                            SHOP NOW 
-                            <i class="fas fa-chevron-right "></i>
-                            </a>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label style="font-size:20px; color:#a51313"><b>$@product.Price</b>/sq.ft</label>
                         </div>
+                        <a asp-action="Details" asp-controller="Home" class="btn btn-success" asp-route-id="@product.ID">
+                            SHOP NOW
+                            <i class="fas fa-chevron-right "></i>
+                        </a>
                     </div>
-                   
+                </div>
+
             </div>
         </div>
 

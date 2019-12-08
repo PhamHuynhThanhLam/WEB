@@ -124,37 +124,24 @@ namespace QuanLyBanGiayASP.Areas.Admin.Controllers
             StoreImportVM.ImportDetails.DateImport = StoreImportVM.ImportDetails.DateImport;
 
             //upload chi tiết nhập với tổng giá tiền
-            ImportDetails import = StoreImportVM.ImportDetails;
-            double total = 0;
+            //ImportDetails import = StoreImportVM.ImportDetails;
             var productlist = _db.Products.ToList();
             foreach (int item in lstProduct)
             {
                 for(int i=0; i<productlist.Count ; i++)
                 {
-                    if(item == productlist[i].ID)
+                    if (item == productlist[i].ID)
                     {
-                        total = total + productlist[i].Price * productlist[i].InStock;
-                    }
+                        ImportDetails importDetails = new ImportDetails()
+                        {
+                            DateImport = StoreImportVM.ImportDetails.DateImport,
+                            ProductId = item
+                        };
+                        _db.ImportDetails.Add(importDetails);
+                    }               
                 }            
             }
-            import.Total = Convert.ToInt32(total);
-            _db.ImportDetails.Add(import);
             _db.SaveChanges();
-
-            int idimport = import.ID;
-
-            //update store
-            foreach (int item in lstProduct)
-            {
-                Stores stores = new Stores()
-                {
-                    ImportDetailID = idimport,
-                    ProductID = item
-                };
-                _db.Stores.Add(stores);
-            }
-            _db.SaveChanges();
-
             lstProduct = new List<int>();
             HttpContext.Session.Set("ssCart", lstProduct);
 
